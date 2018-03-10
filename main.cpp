@@ -18,11 +18,9 @@ void setup()
 
 void draw()
 {
-	int i=0;
 	while(true)
 	{
 		bird->show();
-		//mvprintw(LINES/2,COLS/2,"ehy");
 		refresh();
 	}
 }
@@ -38,6 +36,6 @@ void Bird::show()
 {
     //printw("show");
 	this->update();
-	usleep(2e5);
+	usleep(2e5+1e4);
     mvprintw(this->y,this->x,this->shape.c_str());
 }
