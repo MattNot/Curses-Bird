@@ -9,7 +9,6 @@ void setup()
 {
 	initscr();
 	cbreak();
-	//printw("inizio");
 	keypad(stdscr,TRUE);
 	noecho();
 	curs_set(0);
