@@ -21,7 +21,9 @@ void draw()
 {
 	while(true)
 	{
+		Pipe* pipe= new Pipe();
 		bird->show();
+		pipe->isHit(bird);
 		refresh();
 	}
 }

@@ -7,18 +7,33 @@ struct pezzo{
 class Pipe
 {
     private:
-        int top;
-        int bot;
+        int x;
+        int y;
         int speed;
     public:
         vector<pezzo> pezzi;
         void update();
         void show();
-        bool isHit(Bird bird);
+        bool isHit(Bird* bird);
         Pipe();
+        Pipe(int);
 };
-
-/*bool Pipe::isHit(Bird)
+Pipe::Pipe(){
+    this->y=0;
+    this->x=COLS;
+}
+Pipe::Pipe(int h)
 {
-    if(this)
-}*/
+    this->speed=1;
+    //this->pezzi=new vector<pezzo>;
+    for(int i=0; i<h; i++)
+    {
+        pezzi[i].x=COLS;
+        pezzi[i].y=h-i;
+    }
+}
+
+bool Pipe::isHit(Bird* b)
+{
+
+}
