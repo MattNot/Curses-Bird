@@ -1,10 +1,9 @@
-#include "bird.h"
 #include <vector>
 using namespace std;
-/*typedef struct pezzo{
+struct pezzo{
     int x;
     int y;
-};*/
+};
 class Pipe
 {
     private:
@@ -12,10 +11,10 @@ class Pipe
         int bot;
         int speed;
     public:
-        vector<int> pezzi;
+        vector<pezzo> pezzi;
         void update();
         void show();
-        bool isHit(Bird);
+        bool isHit(Bird bird);
         Pipe();
 };
 
