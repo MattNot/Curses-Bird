@@ -39,26 +39,3 @@ void Bird::up()
 {
     this->vel+=this->lift;
 }
-void Bird::update()
-{
-    if(this->isUp){
-        this->shape=",*,";
-        this->isUp=!this->isUp;
-    }else{
-        this->shape="'*'";
-        this->isUp=!this->isUp;
-    }
-    this->vel+=this->gravity;
-    this->vel*=0,9;
-    //this->y+=this->vel;
-    if(this->y>LINES)
-    {
-        this->y=LINES-1;
-        this->vel=0;
-    }
-    if (this->y<0)
-    {
-        this->y=0;
-        this->vel=0;
-    }
-}

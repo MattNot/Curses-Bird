@@ -1,4 +1,10 @@
-#include "Bird.h"
+#include "bird.h"
+#include <vector>
+using namespace std;
+/*typedef struct pezzo{
+    int x;
+    int y;
+};*/
 class Pipe
 {
     private:
@@ -6,13 +12,14 @@ class Pipe
         int bot;
         int speed;
     public:
+        vector<int> pezzi;
         void update();
         void show();
         bool isHit(Bird);
         Pipe();
 };
 
-bool Pipe::isHit(Bird)
+/*bool Pipe::isHit(Bird)
 {
-    if(this->)
-}
+    if(this)
+}*/
