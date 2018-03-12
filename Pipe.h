@@ -18,6 +18,7 @@ class Pipe
 };
 Pipe::Pipe(){
     this->x=COLS-1;
+    this->speed=1;
     do{
         this->finishU=((rand()%LINES))/2;
         this->startB=((rand()%LINES)+1)/2;
@@ -32,7 +33,31 @@ Pipe::Pipe(){
     for(int i=startB-1; i<LINES; i++)
     {
         y.push_back(i);
-        mvprintw(i,COLS-1,"#");
+        mvprintw(i,x,"#");
         refresh();    
+    }
+}
+
+void Pipe::update()
+{
+    this->x-=this->speed;
+}
+
+void Pipe::show()
+{
+    this->update();
+    for(int i=0; i<this->finishU; i++)
+    {
+        //y.push_back(i);
+        mvprintw(i,x+1," ");
+        mvprintw(i,x,"#");
+        refresh();
+    }
+    for(int i=startB-1; i<LINES; i++)
+    {
+        //y.push_back(i);
+        mvprintw(i,x+1," ");
+        mvprintw(i,x,"#");
+        refresh();
     }
 }

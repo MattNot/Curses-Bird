@@ -5,7 +5,7 @@ class Bird
 {
     private:
         int x;
-        int y;
+        double y;
         string shape;
         double gravity;
         double lift;
@@ -25,10 +25,10 @@ Bird::Bird(int li, int col)
 {
     //printw("creato bird");
     this->y=li/2;
-    this->x=col/2;
+    this->x=5;
     this->shape="\'*\'";
     this->gravity=1;
-    this->lift=2;
+    this->lift=5;
     this->vel=0;
     this->isUp=false;
     //printw("finito bird");
@@ -38,7 +38,11 @@ int Bird::gety(){return this->y;}
 //int Bird::getSize(){return this->size;}
 void Bird::up()
 {
-    this->vel+=this->lift;
+    mvprintw(this->y,this->x,"   ");
+    this->y-=this->lift;
+    //mvprintw(0,0,"%d",this->y);
+    mvprintw(this->y,this->x,this->shape.c_str());
+    refresh();
 }
 
 void Bird::show()
@@ -58,17 +62,18 @@ void Bird::update()
         this->shape="'*'";
         this->isUp=!this->isUp;
     }
-    this->vel+=this->gravity;
-    this->vel*=0,9;
-    //this->y+=this->vel;
-    if(this->y>LINES)
+    mvprintw(this->y,this->x,"   ");
+    this->y+=this->gravity;
+    //this->vel*=0,9;
+    mvprintw(this->y,this->x,"   ");
+    this->y+=this->vel;
+    if(this->y>LINES-1)
     {
         this->y=LINES-1;
         this->vel=0;
     }
     if (this->y<0)
     {
-        this->y=0;
-        this->vel=0;
+        this->y=1;
     }
 }
