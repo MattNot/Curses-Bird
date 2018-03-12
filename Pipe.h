@@ -21,26 +21,18 @@ Pipe::Pipe(){
     do{
         this->finishU=((rand()%LINES))/2;
         this->startB=((rand()%LINES)+1)/2;
-    }while(this->startB-this->finishU<=1 || finishU==0);
-   // printw(to_string(finishU).c_str());
-   // mvprintw(1,1,to_string(startB).c_str());
-    int z=0;
+    }while(this->startB-this->finishU<2 || finishU==0);
+   
     for(int i=0; i<this->finishU; i++)
     {
         y.push_back(i);
-        usleep(1e6);
-        mvprintw(i,x,to_string(y[i]).c_str());
-        z=i;
+        mvprintw(i,x,"#");
         refresh();
     }
-    for(int i=startB; i<LINES-1; i++)
+    for(int i=startB-1; i<LINES; i++)
     {
-        //mvprintw(0,0,to_string(i).c_str());
-       // printw(to_string(startB).c_str());
         y.push_back(i);
-        mvprintw(0,0,to_string(i).c_str());
-        usleep(1e6);
-        mvprintw(i,COLS-1,to_string(y[i]).c_str());
+        mvprintw(i,COLS-1,"#");
         refresh();    
     }
 }
