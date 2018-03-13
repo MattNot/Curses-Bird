@@ -1,12 +1,10 @@
 #include <vector>
-#include <iostream>
 using namespace std;
 class Pipe
 {
     public:
         int speed;
         int x;
-        //char v[20]="ciao";
         vector<int> y;
         int finishU;
         int startB;
@@ -22,7 +20,7 @@ Pipe::Pipe(){
     do{
         this->finishU=((rand()%LINES))/2;
         this->startB=((rand()%LINES)+1)/2;
-    }while(this->startB-this->finishU<2 || finishU==0);
+    }while(this->startB-this->finishU<3 || finishU==0);
    
     for(int i=0; i<this->finishU; i++)
     {
@@ -59,5 +57,21 @@ void Pipe::show()
         mvprintw(i,x+1," ");
         mvprintw(i,x,"#");
         refresh();
+    }
+}
+
+
+bool Pipe::isHit(Bird* bird)
+{
+    if(bird->getx()==this->x)
+    {
+        for(int i=0; i<y.size();i++)
+        {
+            if(bird->gety()==y[i])
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

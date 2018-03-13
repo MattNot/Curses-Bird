@@ -38,14 +38,18 @@ void draw()
 		{
 			pipes.erase(pipes.begin());
 		}
-		for(int i=0; i<pipes.size();i++)
-		{
-			pipes[i].show();
-		}
 		char c=getch();
 		if(c==' ')
 		{
 			bird->up();
+		}
+		for(int i=0; i<pipes.size();i++)
+		{
+			pipes[i].show();
+			if(pipes[i].isHit(bird))
+			{
+				return;
+			}
 		}
 		refresh();
 	}
@@ -55,6 +59,7 @@ int main()
 {
 	setup();
 	draw();
+	nodelay(stdscr,false);
 	getch();
 	endwin();
 }
