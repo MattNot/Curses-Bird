@@ -28,7 +28,7 @@ Bird::Bird(int li, int col)
     this->x=5;
     this->shape="\'*\'";
     this->gravity=1;
-    this->lift=5;
+    this->lift=4;
     this->vel=0;
     this->isUp=false;
     //printw("finito bird");
@@ -40,6 +40,9 @@ void Bird::up()
 {
     mvprintw(this->y,this->x,"   ");
     this->y-=this->lift;
+    if(this->y<=0){
+        this->y=0;
+    }
     //mvprintw(0,0,"%d",this->y);
     mvprintw(this->y,this->x,this->shape.c_str());
     refresh();
@@ -49,7 +52,7 @@ void Bird::show()
 {
     //printw("show");
 	this->update();
-	usleep(2e5+1e4);
+	usleep(2e5+1e2);
     mvprintw(this->y,this->x,this->shape.c_str());
 }
 

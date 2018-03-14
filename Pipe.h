@@ -20,7 +20,7 @@ Pipe::Pipe(){
     do{
         this->finishU=((rand()%LINES))/2;
         this->startB=((rand()%LINES)+1)/2;
-    }while(this->startB-this->finishU<3 || finishU==0);
+    }while(this->startB-this->finishU<4 || finishU==0);
    
     for(int i=0; i<this->finishU; i++)
     {
@@ -63,7 +63,7 @@ void Pipe::show()
 
 bool Pipe::isHit(Bird* bird)
 {
-    if(bird->getx()==this->x)
+    if(bird->getx()+1==this->x)
     {
         for(int i=0; i<y.size();i++)
         {
