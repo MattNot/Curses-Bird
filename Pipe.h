@@ -17,10 +17,11 @@ class Pipe
 Pipe::Pipe(){
     this->x=COLS-1;
     this->speed=1;
+    
     do{
-        this->finishU=((rand()%LINES))/2;
-        this->startB=((rand()%LINES)+1)/2;
-    }while(this->startB-this->finishU<4 || finishU==0);
+        this->finishU=((rand()%(LINES/2))+1);
+        this->startB=((rand()%(LINES/2))+1);
+    }while((this->startB-this->finishU)<4 || finishU==0);
    
     for(int i=0; i<this->finishU; i++)
     {
@@ -48,6 +49,7 @@ void Pipe::show()
     {
         //y.push_back(i);
         mvprintw(i,x+1," ");
+        refresh();
         mvprintw(i,x,"#");
         refresh();
     }
@@ -55,6 +57,7 @@ void Pipe::show()
     {
         //y.push_back(i);
         mvprintw(i,x+1," ");
+        refresh();
         mvprintw(i,x,"#");
         refresh();
     }
