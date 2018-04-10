@@ -2,11 +2,11 @@
 #include <cstring>
 #include <string>
 #include <unistd.h>
-#include "bird.h"
-#include "Pipe.h"
 #include <cstdlib>
 #include <time.h>
-#include "logo.h"
+#include "./lib/bird.h"
+#include "./lib/Pipe.h"
+#include "./lib/logo.h"
 using namespace std;
 
 Bird* bird; //The bird

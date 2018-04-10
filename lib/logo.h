@@ -17,7 +17,6 @@ void selection(int);
 void selection(int ch)
 {
     clear();
-    mvprintw(0,0,"%d",ch);
     switch(ch)
     {
         case 0:
