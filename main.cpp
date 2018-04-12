@@ -39,7 +39,7 @@ void play()
 		box(stdscr, 0,0);
 		mvprintw(0, (COLS/2)-5, "Points: %d",points);
 		tmp++;
-		// Create a new pipe and push back it into the vector pipes
+		// Create a new pipe and push back it into the vector "pipes"
  		if(tmp%spawnrate==0)
 		{
 			Pipe* pipe=new Pipe();
@@ -67,6 +67,8 @@ void play()
 				{
 					clear();
 					mvprintw(LINES/2, COLS/2-15, "YOU LOSE! Your points: %d", points);
+					nodelay(stdscr,false);
+					getch();
 					return;
 				}
 				else
@@ -75,15 +77,12 @@ void play()
 				}
 			}
 		}
-		//refresh();
 	}
 }
 
 int main()
 {
 	setup();
-	//play();
 	nodelay(stdscr,false);
-	getch();
 	endwin();
 }

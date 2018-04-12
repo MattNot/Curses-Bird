@@ -14,6 +14,7 @@ void play();
 int showFirstMenu(int);
 int printLogo();
 void selection(int);
+//Execute the user input
 void selection(int ch)
 {
     clear();
@@ -23,11 +24,19 @@ void selection(int ch)
             play();
             return;
             break;
-        case 1:
+        case 1: //Copyright stuffs
             mvprintw(LINES/2, COLS/2, "\n Curses Bird  Copyright (C) 2018  Matteo Notaro \n This program comes with ABSOLUTELY NO WARRANTY; \n This is free software, and you are welcome to redistribute it \n under certain conditions; see \"LICENSE\" file for details \n github: MattNot \n LinkedIn: matteo-notaro \n For info you can write me on linkedin or create a issue on github.");
             nodelay(stdscr, false);
             char c;
-            while(1){c=getch(); if(c){clear(); showFirstMenu(printLogo());}}
+            while(1){
+				c=getch();
+				if(c)
+				{
+					clear(); 
+					showFirstMenu(printLogo());
+					break;
+				}
+			}
             break;
         case 2:
             endwin();
@@ -60,11 +69,10 @@ int printLogo()
 }
 int showFirstMenu(int i)
 {
-	//clear();
 	int choice, highlight=0;
 	while(1)
 	{
-		for(int j=0; j<3; j++)
+		for(int j=0; j<3; j++) //Show the actual choiche
 		{
 			if(j==highlight)
 				wattron(stdscr,A_REVERSE);
