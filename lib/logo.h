@@ -3,13 +3,6 @@ string firstMenu[3]={
 	"CREDITS",
 	"EXIT =("
 };
-string playMenu[5]={
-	"Easy",
-	"Medium",
-	"Hard",
-	"Go back!",
-	"1MP0551BL3"
-};
 void play();
 int showFirstMenu(int);
 int printLogo();
