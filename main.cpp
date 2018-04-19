@@ -23,6 +23,15 @@ void setup()
 	nodelay(stdscr, true);
 	noecho();
 	curs_set(0);
+	start_color();
+							//R	, G	 , B
+	init_color(COLOR_YELLOW,1000,1000, 0);
+	init_color(COLOR_GREEN, 0,   1000, 0);
+	init_color(COLOR_BLACK, 0,   0,    0);
+	init_color(COLOR_WHITE, 1000,1000,1000);
+	init_pair(1,COLOR_GREEN,COLOR_BLACK); // Pipes color pair
+	init_pair(2,COLOR_YELLOW,COLOR_BLACK); // Bird color pair
+	
 	box(stdscr, 0,0);
 	bird=new Bird((int)LINES,(int)COLS);
 	int state=1;
@@ -31,7 +40,7 @@ void setup()
 }
 void play()
 {
-	int spawnrate=20; //This sets the number of pipes on the screen e.s. 20=4, 15=6;
+	int spawnrate=20; //This sets the number of pipes on the screen e.g. 20=4, 15=6;
 	Pipe* pipe=new Pipe();
 	pipes.push_back(*pipe);
 	while(true)
@@ -55,11 +64,6 @@ void play()
 				//Delete and pop the pipe if it gets out the screen
 				pipes.erase(pipes.begin());
 			}
-			char c=getch();
-			if(c==' ')
-			{
-				bird->up();
-			}
 			for(int i=0; i<pipes.size();i++)
 			{
 				pipes[i].show();
@@ -75,6 +79,11 @@ void play()
 				{
 					points++;
 				}
+			}
+			char c=getch();
+			if(c==' ')
+			{
+				bird->up();
 			}
 		}
 	}

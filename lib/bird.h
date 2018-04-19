@@ -40,7 +40,9 @@ void Bird::up()
     {
         this->y=0;
     }
+    attron(COLOR_PAIR(2));
     mvprintw(this->y,this->x,this->shape.c_str());
+    attroff(COLOR_PAIR(2));
     refresh();
 }
 
@@ -48,7 +50,9 @@ void Bird::show()
 {
 	this->update();
 	usleep((2e4)*8);
+    attron(COLOR_PAIR(2));
     mvprintw(this->y,this->x,this->shape.c_str());
+    attroff(COLOR_PAIR(2));
 }
 
 void Bird::update()

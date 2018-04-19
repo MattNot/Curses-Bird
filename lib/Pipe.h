@@ -8,21 +8,22 @@ class Pipe
         vector<int> y;
         int finishU;
         int startB;
+        int spacing;
         void update();
         void show();
         bool isHit(Bird* bird);
         Pipe();
         Pipe(int);
 };
+
 Pipe::Pipe(){
     this->x=COLS-1;
     this->speed=1;
+    this->spacing=(rand()%4)+3;
+    this->finishU=rand()%(LINES-5)+1;
+    this->startB=finishU+spacing;
+    mvprintw(2,2,"%d f %d s %d f+s+s",finishU,spacing,startB);
     
-    do{
-        this->finishU=((rand()%(LINES/2))+1);
-        this->startB=((rand()%(LINES/2))+1);
-    }while((this->startB-this->finishU)<4 || finishU==0);
-   
     for(int i=0; i<this->finishU; i++)
     {
         y.push_back(i);
@@ -50,7 +51,9 @@ void Pipe::show()
         //y.push_back(i);
         mvprintw(i,x+1," ");
         refresh();
+        attron(COLOR_PAIR(1));
         mvprintw(i,x,"#");
+        attroff(COLOR_PAIR(1));
         refresh();
     }
     for(int i=startB-1; i<LINES; i++)
@@ -58,7 +61,9 @@ void Pipe::show()
         //y.push_back(i);
         mvprintw(i,x+1," ");
         refresh();
+        attron(COLOR_PAIR(1));
         mvprintw(i,x,"#");
+        attroff(COLOR_PAIR(1));
         refresh();
     }
 }
