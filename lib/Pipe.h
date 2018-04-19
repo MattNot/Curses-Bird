@@ -22,7 +22,6 @@ Pipe::Pipe(){
     this->spacing=(rand()%4)+3;
     this->finishU=rand()%(LINES-5)+1;
     this->startB=finishU+spacing;
-    mvprintw(2,2,"%d f %d s %d f+s+s",finishU,spacing,startB);
     
     for(int i=0; i<this->finishU; i++)
     {
