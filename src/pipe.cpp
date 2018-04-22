@@ -1,21 +1,6 @@
-#include <vector>
-using namespace std;
-class Pipe
-{
-    public:
-        int speed;
-        int x;
-        vector<int> y;
-        int finishU;
-        int startB;
-        int spacing;
-        void update();
-        void show();
-        bool isHit(Bird* bird);
-        Pipe();
-        Pipe(int);
-};
-
+#include "../includes/pipe.h"
+#include <ncurses.h>
+#include <cstdlib>
 Pipe::Pipe(){
     this->x=COLS-1;
     this->speed=1;

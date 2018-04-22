@@ -4,9 +4,8 @@
 #include <unistd.h>
 #include <cstdlib>
 #include <time.h>
-#include "./lib/bird.h"
-#include "./lib/Pipe.h"
-#include "./lib/logo.h"
+#include "../includes/pipe.h"
+#include "../includes/logo.h"
 using namespace std;
 
 Bird* bird; //The bird

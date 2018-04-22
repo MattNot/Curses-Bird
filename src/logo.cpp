@@ -1,12 +1,13 @@
+#include "../includes/logo.h"
+#include <ncurses.h>
+#include <cstdlib>
+#include <string>
+using namespace std;
 string firstMenu[3]={
 	"PLAY!",
 	"CREDITS",
 	"EXIT =("
 };
-void play();
-int showFirstMenu(int);
-int printLogo();
-void selection(int);
 //Execute the user input
 void selection(int ch)
 {
