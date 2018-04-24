@@ -23,8 +23,8 @@ void setup()
 	noecho();
 	curs_set(0);
 	start_color();
-							//R	, G	 , B
-	init_color(COLOR_YELLOW,1000,1000, 0);
+			//R	, G	 , B
+	init_color(COLOR_YELLOW,1000,1000, 0); //Don't know why yellow was mustard
 	init_color(COLOR_GREEN, 0,   1000, 0);
 	init_color(COLOR_BLACK, 0,   0,    0);
 	init_color(COLOR_WHITE, 1000,1000,1000);
@@ -37,6 +37,7 @@ void setup()
 	int k=printLogo();
 	state=showFirstMenu(k);
 }
+
 void play()
 {
 	int spawnrate=20; //This sets the number of pipes on the screen e.g. 20=4, 15=6;
@@ -55,9 +56,10 @@ void play()
 		}
 
 		bird->show();
-		
+
 		// Avoid some coredump bugs
-		if(pipes.size()>0){
+		if(pipes.size()>0)
+		{
 			if(pipes[0].x<0)
 			{   
 				//Delete and pop the pipe if it gets out the screen
@@ -66,18 +68,19 @@ void play()
 			for(int i=0; i<pipes.size();i++)
 			{
 				pipes[i].show();
-				if(pipes[i].isHit(bird)) //Lose condition
-				{
-					clear();
-					mvprintw(LINES/2, COLS/2-15, "YOU LOSE! Your points: %d", points);
-					nodelay(stdscr,false);
-					getch();
-					return;
-				}
-				else
-				{
-					points++;
-				}
+			}
+
+			if(pipes[0].isHit(bird) || bird->gety()==LINES-1) //Lose condition
+			{
+				clear();
+				mvprintw(LINES/2, COLS/2-15, "YOU LOSE! Your points: %d", points);
+				nodelay(stdscr,false);
+				getch();
+				return;
+			}
+			else
+			{
+				points++;
 			}
 			char c=getch();
 			if(c==' ')
