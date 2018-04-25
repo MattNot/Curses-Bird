@@ -4,7 +4,7 @@
 Pipe::Pipe(){
     this->x=COLS-1;
     this->speed=1;
-    this->spacing=(rand()%4)+3;
+    this->spacing=(rand()%4)+4;
     this->finishU=rand()%(LINES-5)+1;
     this->startB=finishU+spacing;
     
