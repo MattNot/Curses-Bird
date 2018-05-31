@@ -1,15 +1,17 @@
 #include "../includes/bird.h"
 #include <ncurses.h>
 #include <unistd.h>
-Bird::Bird(int li, int col)
+
+Bird::Bird()
 {
-    this->y=li/2;
+    this->y=LINES/2;
     this->x=5;
     this->shape="\'*\'";
     this->gravity=1;
     this->lift=4;
     this->isUp=false;
 }
+
 
 int Bird::getx(){return this->x;}
 int Bird::gety(){return this->y;}

@@ -16,5 +16,5 @@ class Bird
         void show();
         void up();
         void update();
-        Bird(int,int);
+        Bird();
 };
