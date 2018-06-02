@@ -20,15 +20,18 @@ Bird* bird; //The bird
 vector<Pipe> pipes; //Pipes
 int points=0;
 long unsigned tmp=0;
+
 void start()
 {
 	while(1)
 	{
+		points=0;
 		box(stdscr, 0,0);
 		int k=printLogo();
 		int x=showFirstMenu(k);
 	}
 }
+
 void setup()
 {
 	c.loadFromFile("../resources/coin.wav");
@@ -63,15 +66,18 @@ void setup()
 
 void restart()
 {
+	tmp=0;
 	bird=new Bird();
 	pipes.clear();
 }
+
 void play()
 {
 	restart();
 	intro.stop();
 	music.play();
-	int spawnrate=20; //This sets the number of pipes on the screen e.g. 20=4, 15=6;
+	int spawnrate=19; //This sets the number of pipes on the screen e.g. 20=4, 15=6;
+	bool difficulty=true;
 	Pipe* pipe=new Pipe();
 	pipes.push_back(*pipe);
 	while(true)
@@ -79,15 +85,15 @@ void play()
 		box(stdscr, 0,0);
 		mvprintw(0, (COLS/2)-5, "Points: %d",points);
 		tmp++;
-		// Create a new pipe and push back it into the vector "pipes"
- 		if(tmp%spawnrate==0)
+		// Create a new pipe and push back it into the vector "pipes" only if dicculty hasn't been changed
+		if(tmp%spawnrate==0 && difficulty)
 		{
 			Pipe* pipe=new Pipe();
 			pipes.push_back(*pipe);
 		}
-		if(((points+1)%5)==0) //Add linear difficulty every 5 points
+		if(!difficulty)
 		{
-			spawnrate-=2;
+			difficulty=!difficulty;
 		}
 		// Avoid some coredump failure
 		if(pipes.size()>0)
@@ -109,7 +115,7 @@ void play()
 				bird->up();
 			}
 			bird->show();
-			if(pipes[0].isHit(bird) || bird->gety()==LINES-2) //Lose condition
+			if(pipes[0].isHit(bird) || bird->gety()==LINES-1) //Lose condition
 			{
 				music.stop();
 				death.play();
@@ -122,7 +128,14 @@ void play()
 			else
 			{
 				if(pipes[0].x==bird->getx())
-				points++;
+				{
+					points++;
+					if(points%5==0)
+					{
+						spawnrate-=2;
+						difficulty=!difficulty;
+					}
+				}
 			}
 		}
 	}
