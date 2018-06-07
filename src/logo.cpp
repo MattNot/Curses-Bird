@@ -3,9 +3,10 @@
 #include <cstdlib>
 #include <string>
 using namespace std;
-string firstMenu[3]={
+string firstMenu[4]={
 	"PLAY!",
 	"CREDITS",
+	"ISTRUCTIONS",
 	"EXIT =("
 };
 //Execute the user input
@@ -26,13 +27,24 @@ void selection(int ch)
 				c=getch();
 				if(c)
 				{
-					clear(); 
-					showFirstMenu(printLogo());
-					break;
+					clear();
+					return;
 				}
 			}
             break;
-        case 2:
+		case 2:
+			mvprintw(LINES/2,COLS/2,"\nSPACEBAR->Jump\nIf the bird is red means that you're invincible for just ONE hit. You become invincible every 10 points.");
+			nodelay(stdscr,false);
+			char d;
+			while(1){
+				d=getch();
+				if(d){
+					clear();
+					return;
+				}
+			}
+			break;
+        case 3:
             endwin();
             exit(1);
             break;
@@ -50,15 +62,15 @@ int printLogo()
 	mvprintw(i++,2,R"(\  /\  /  __/ | (_| (_) | | | | | |  __/ | |_| (_) | )");
 	mvprintw(i++,2,R"( \/  \/ \___|_|\___\___/|_| |_| |_|\___|  \__|\___/  )");
 	mvprintw(i++,2,R"(                                                    )");
-	mvprintw(i++,02,R"(                                                    )");
-	mvprintw(i++,02,R"( _____                           ______ _         _ )");
-	mvprintw(i++,02,R"(/  __ \                          | ___ (_)       | |)");
-	mvprintw(i++,02,R"(| /  \/_   _ _ __ ___  ___  ___  | |_/ /_ _ __ __| |)");
-	mvprintw(i++,02,R"(| |   | | | | '__/ __|/ _ \/ __| | ___ \ | '__/ _  |)");
-	mvprintw(i++,02,R"(| \__/\ |_| | |  \__ \  __/\__ \ | |_/ / | | | (_| |)");
-	mvprintw(i++,02,R"( \____/\__,_|_|  |___/\___||___/ \____/|_|_|  \__,_|)");
-	mvprintw(i++,02,R"(                                                    )");
-	mvprintw(i++,02,R"(                                                   )");
+	mvprintw(i++,2,R"(                                                    )");
+	mvprintw(i++,2,R"( _____                           ______ _         _ )");
+	mvprintw(i++,2,R"(/  __ \                          | ___ (_)       | |)");
+	mvprintw(i++,2,R"(| /  \/_   _ _ __ ___  ___  ___  | |_/ /_ _ __ __| |)");
+	mvprintw(i++,2,R"(| |   | | | | '__/ __|/ _ \/ __| | ___ \ | '__/ _  |)");
+	mvprintw(i++,2,R"(| \__/\ |_| | |  \__ \  __/\__ \ | |_/ / | | | (_| |)");
+	mvprintw(i++,2,R"( \____/\__,_|_|  |___/\___||___/ \____/|_|_|  \__,_|)");
+	mvprintw(i++,2,R"(                                                    )");
+	mvprintw(i++,2,R"(                                                   )");
 	return i;
 }
 int showFirstMenu(int i)
@@ -66,7 +78,7 @@ int showFirstMenu(int i)
 	int choice, highlight=0;
 	while(1)
 	{
-		for(int j=0; j<3; j++) //Show the actual choiche
+		for(int j=0; j<4; j++) //Show the actual choiche
 		{
 			if(j==highlight)
 				wattron(stdscr,A_REVERSE);
@@ -83,8 +95,8 @@ int showFirstMenu(int i)
 				break;
 			case KEY_DOWN:
 				highlight++;
-				if(highlight==3)
-					highlight=2;
+				if(highlight==4)
+					highlight=3;
 				break;
 			default:
 				break;

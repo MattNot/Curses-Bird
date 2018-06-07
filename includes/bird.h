@@ -9,6 +9,7 @@ class Bird
         string shape;
         short int gravity;
         short int lift;
+        bool invincibility;
         bool isUp;
     public:
         int getx();
@@ -16,5 +17,7 @@ class Bird
         void show();
         void up();
         void update();
+        bool isInvincible();
+        bool setInvincibility(bool);
         Bird();
 };

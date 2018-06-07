@@ -58,8 +58,10 @@ void setup()
 	init_color(COLOR_GREEN, 0,   1000, 0);
 	init_color(COLOR_BLACK, 0,   0,    0);
 	init_color(COLOR_WHITE, 1000,1000,1000);
+	init_color(COLOR_RED,   1000,0,    0);
 	init_pair(1,COLOR_GREEN,COLOR_BLACK); // Pipe's color pair
-	init_pair(2,COLOR_YELLOW,COLOR_BLACK); // Bird's color pair
+	init_pair(2,COLOR_YELLOW,COLOR_BLACK); // Bird's color pair when vulnerable
+	init_pair(3,COLOR_RED,COLOR_BLACK); //Bird's color pair when invincible
 	bird=new Bird();
 	start();
 }
@@ -76,7 +78,7 @@ void play()
 	restart();
 	intro.stop();
 	music.play();
-	int spawnrate=19; //This sets the number of pipes on the screen e.g. 20=4, 15=6;
+	int spawnrate=19; //This sets the number of pipes on the screen e.g. 19=4, 15=6;
 	bool difficulty=true;
 	Pipe* pipe=new Pipe();
 	pipes.push_back(*pipe);
@@ -85,7 +87,7 @@ void play()
 		box(stdscr, 0,0);
 		mvprintw(0, (COLS/2)-5, "Points: %d",points);
 		tmp++;
-		// Create a new pipe and push back it into the vector "pipes" only if dicculty hasn't been changed
+		// Create a new pipe and push back it into the vector "pipes" only if dicculty hasn't been just changed
 		if(tmp%spawnrate==0 && difficulty)
 		{
 			Pipe* pipe=new Pipe();
@@ -115,7 +117,7 @@ void play()
 				bird->up();
 			}
 			bird->show();
-			if(pipes[0].isHit(bird) || bird->gety()==LINES-1) //Lose condition
+			if((pipes[0].isHit(bird) || bird->gety()==LINES-1) && !bird->isInvincible()) //Lose condition
 			{
 				music.stop();
 				death.play();
@@ -124,6 +126,23 @@ void play()
 				nodelay(stdscr,false);
 				getch();
 				return;
+			}
+			else if(pipes[0].isHit(bird))
+			{
+				bird->setInvincibility(false);
+				if(pipes[0].x==bird->getx())
+				{
+					points++;
+					if(points%5==0)
+					{
+						spawnrate-=2;
+						difficulty=!difficulty;
+					}
+					if(points%10==0)
+					{
+						bird->setInvincibility(true);
+					}
+				}
 			}
 			else
 			{
@@ -134,6 +153,10 @@ void play()
 					{
 						spawnrate-=2;
 						difficulty=!difficulty;
+					}
+					if(points%10==0)
+					{
+						bird->setInvincibility(true);
 					}
 				}
 			}

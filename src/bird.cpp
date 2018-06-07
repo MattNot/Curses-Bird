@@ -10,9 +10,11 @@ Bird::Bird()
     this->gravity=1;
     this->lift=4;
     this->isUp=false;
+    this->invincibility=false;
 }
 
-
+bool Bird::isInvincible(){return invincibility;}
+bool Bird::setInvincibility(bool t){this->invincibility=t;}
 int Bird::getx(){return this->x;}
 int Bird::gety(){return this->y;}
 
@@ -24,9 +26,15 @@ void Bird::up()
     {
         this->y=0;
     }
-    attron(COLOR_PAIR(2));
-    mvprintw(this->y,this->x,this->shape.c_str());
-    attroff(COLOR_PAIR(2));
+    if(!invincibility){
+        attron(COLOR_PAIR(2));
+        mvprintw(this->y,this->x,this->shape.c_str());
+        attroff(COLOR_PAIR(2));
+    }else{
+        attron(COLOR_PAIR(3));
+        mvprintw(this->y,this->x,this->shape.c_str());
+        attroff(COLOR_PAIR(3));
+    }
     refresh();
 }
 
@@ -34,9 +42,15 @@ void Bird::show()
 {
 	this->update();
 	usleep((2e4)*6);
-    attron(COLOR_PAIR(2));
-    mvprintw(this->y,this->x,this->shape.c_str());
-    attroff(COLOR_PAIR(2));
+    if(!invincibility){
+        attron(COLOR_PAIR(2));
+        mvprintw(this->y,this->x,this->shape.c_str());
+        attroff(COLOR_PAIR(2));
+    }else{
+        attron(COLOR_PAIR(3));
+        mvprintw(this->y,this->x,this->shape.c_str());
+        attroff(COLOR_PAIR(3));
+    }
 }
 
 void Bird::update()
