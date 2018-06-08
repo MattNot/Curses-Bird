@@ -4,8 +4,25 @@ A Flappy bird clone using ncurses and c++. Project done for ICT exam at Universi
 
 In order to build you have to install CMake.
 ```
-cmake CMakeLists.txt && make -f Makefile
+sudo apt-get install cmake-gui
+```
+Then you can create a `build` folder and type in a terminal
 
+```cmake .. && make```
+
+or just type
+
+```
+cmake CMakeLists.txt && make -f Makefile
+```
+in both cases then type
+```
 ./cursesbird
 ```
-Thanks to http://thecodingtrain.com/ aka Daniel Shiffman (http://shiffman.net/) and the Processing foundation for the idea and the amazing works they do.
+
+Enjoy!
+
+Don't forget to open an issue if you get bugs or glitches!
+Next project: A "simple" Neural network using TensorFlow for the bird!
+
+Thanks to http://thecodingtrain.com/ (aka Daniel Shiffman (http://shiffman.net/)) and the Processing foundation for the idea and the amazing works they do.
