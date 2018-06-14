@@ -1,24 +1,38 @@
+#define COIN "../resources/coin.wav"
+#define DEATH "../resources/death.wav"
+#define INTRO "../resources/intro.wav"
+#define THEME "../resources/Energy Theme.wav"
+#define SCORE "../score.dat"
+
 #include <ncurses.h>
 #include <cstring>
 #include <string>
 #include <unistd.h>
 #include <cstdlib>
+#include <fstream>
 #include <time.h>
-#include "../includes/pipe.h"
 #include <SFML/Audio.hpp>
+
+#include "../includes/pipe.h"
 #include "../includes/logo.h"
+
 using namespace std;
 using namespace sf;
 
+ofstream ofile;
+ifstream ifile;
 Music music;
 Music intro;
 SoundBuffer c;
 SoundBuffer d;
 Sound coin;
 Sound death;
+
 Bird* bird; //The bird
 vector<Pipe> pipes; //Pipes
+
 int points=0;
+int highScore;
 long unsigned tmp=0;
 
 void start()
@@ -34,10 +48,10 @@ void start()
 
 void setup()
 {
-	c.loadFromFile("../resources/coin.wav");
-	d.loadFromFile("../resources/death.wav");
-	intro.openFromFile("../resources/intro.wav");
-	music.openFromFile("../resources/Energy Theme.wav");
+	c.loadFromFile(COIN);
+	d.loadFromFile(DEATH);
+	intro.openFromFile(INTRO);
+	music.openFromFile(THEME);
 	coin.setBuffer(c);
 	death.setBuffer(d);
 	intro.setVolume(50);
@@ -78,6 +92,12 @@ void play()
 	restart();
 	intro.stop();
 	music.play();
+	ifile.open(SCORE);
+	string hS;
+	getline(ifile,hS);
+	highScore=stoi(hS);
+	ifile.close();
+	ofile.open(SCORE);
 	int spawnrate=19; //This sets the number of pipes on the screen e.g. 19=4, 15=6;
 	bool difficulty=true;
 	Pipe* pipe=new Pipe();
@@ -93,10 +113,12 @@ void play()
 			Pipe* pipe=new Pipe();
 			pipes.push_back(*pipe);
 		}
+
 		if(!difficulty)
 		{
 			difficulty=!difficulty;
 		}
+		
 		// Avoid some coredump failure
 		if(pipes.size()>0)
 		{
@@ -105,17 +127,18 @@ void play()
 				//Delete and pop the pipe if it gets out the screen, I could use queue but I'm more confident with vector instead
 				pipes.erase(pipes.begin());
 			}
+
 			for(int i=0; i<pipes.size();i++)
 			{
-				if(pipes[i].x==bird->getx())
-					coin.play();
 				pipes[i].show();
 			}
+
 			char c=getch();
 			if(c==' ')
 			{
 				bird->up();
 			}
+
 			bird->show();
 			if((pipes[0].isHit(bird) || bird->gety()==LINES-1) && !bird->isInvincible()) //Lose condition
 			{
@@ -123,6 +146,20 @@ void play()
 				death.play();
 				clear();
 				mvprintw(LINES/2, COLS/2-15, "YOU LOSE! Your points: %d", points);
+				mvprintw(LINES/2+1,COLS/2-15,"Last highScore: %d",highScore);
+				if(ofile.is_open())
+				{
+					if(points>highScore)
+					{
+						ofile<<to_string(points);
+						ofile.flush();
+						mvprintw(LINES/2+2,COLS/2-15,"New highscore %d", points);
+					}else{
+						ofile<<highScore;
+						ofile.flush();
+					}
+					ofile.close();
+				}
 				nodelay(stdscr,false);
 				getch();
 				return;
@@ -148,10 +185,13 @@ void play()
 			{
 				if(pipes[0].x==bird->getx())
 				{
+					coin.play();
 					points++;
 					if(points%5==0)
 					{
 						spawnrate-=2;
+						if(spawnrate<2)
+							spawnrate=3;
 						difficulty=!difficulty;
 					}
 					if(points%10==0)
