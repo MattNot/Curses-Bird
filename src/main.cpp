@@ -140,63 +140,66 @@ void play()
 			}
 
 			bird->show();
-			if((pipes[0].isHit(bird) || bird->gety()==LINES-1) && !bird->isInvincible()) //Lose condition
+			for(int i=0; i<pipes.size();i++)
 			{
-				music.stop();
-				death.play();
-				clear();
-				mvprintw(LINES/2, COLS/2-15, "YOU LOSE! Your points: %d", points);
-				mvprintw(LINES/2+1,COLS/2-15,"Last highScore: %d",highScore);
-				if(ofile.is_open())
+				if((pipes[i].isHit(bird) || bird->gety()==LINES-1) && !bird->isInvincible()) //Lose condition
 				{
-					if(points>highScore)
+					music.stop();
+					death.play();
+					clear();
+					mvprintw(LINES/2, COLS/2-15, "YOU LOSE! Your points: %d", points);
+					mvprintw(LINES/2+1,COLS/2-15,"Last highScore: %d",highScore);
+					if(ofile.is_open())
 					{
-						ofile<<to_string(points);
-						ofile.flush();
-						mvprintw(LINES/2+2,COLS/2-15,"New highscore %d", points);
-					}else{
-						ofile<<highScore;
-						ofile.flush();
+						if(points>highScore)
+						{
+							ofile<<to_string(points);
+							ofile.flush();
+							mvprintw(LINES/2+2,COLS/2-15,"New highscore %d", points);
+						}else{
+							ofile<<highScore;
+							ofile.flush();
+						}
+						ofile.close();
 					}
-					ofile.close();
+					nodelay(stdscr,false);
+					getch();
+					return;
 				}
-				nodelay(stdscr,false);
-				getch();
-				return;
-			}
-			else if(pipes[0].isHit(bird))
-			{
-				bird->setInvincibility(false);
-				if(pipes[0].x==bird->getx())
+				else if(pipes[i].isHit(bird))
 				{
-					points++;
-					if(points%5==0)
+					bird->setInvincibility(false);
+					if(pipes[i].x==bird->getx())
 					{
-						spawnrate-=2;
-						difficulty=!difficulty;
-					}
-					if(points%10==0)
-					{
-						bird->setInvincibility(true);
+						points++;
+						if(points%5==0)
+						{
+							spawnrate-=2;
+							difficulty=!difficulty;
+						}
+						if(points%10==0)
+						{
+							bird->setInvincibility(true);
+						}
 					}
 				}
-			}
-			else
-			{
-				if(pipes[0].x==bird->getx())
+				else
 				{
-					coin.play();
-					points++;
-					if(points%5==0)
+					if(pipes[i].x==bird->getx())
 					{
-						spawnrate-=2;
-						if(spawnrate<2)
-							spawnrate=3;
-						difficulty=!difficulty;
-					}
-					if(points%10==0)
-					{
-						bird->setInvincibility(true);
+						coin.play();
+						points++;
+						if(points%5==0)
+						{
+							spawnrate-=2;
+							if(spawnrate<2)
+								spawnrate=3;
+							difficulty=!difficulty;
+						}
+						if(points%10==0)
+						{
+							bird->setInvincibility(true);
+						}
 					}
 				}
 			}
