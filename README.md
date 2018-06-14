@@ -23,6 +23,7 @@ in both cases then type
 Enjoy!
 
 Don't forget to open an issue if you get bugs or glitches!
+
 Next project: A "simple" Neural network using TensorFlow for the bird!
 
 Thanks to http://thecodingtrain.com/ (aka Daniel Shiffman (http://shiffman.net/)) and the Processing foundation for the idea and the amazing works they do.
