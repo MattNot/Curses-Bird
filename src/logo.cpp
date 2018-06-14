@@ -76,6 +76,7 @@ int printLogo()
 int showFirstMenu(int i)
 {
 	int choice, highlight=0;
+	nodelay(stdscr, false);
 	while(1)
 	{
 		for(int j=0; j<4; j++) //Show the actual choiche
@@ -107,6 +108,7 @@ int showFirstMenu(int i)
 			break;
 		}
 	}
+	nodelay(stdscr, true);
 	selection(highlight);
 	return -1;
 }
