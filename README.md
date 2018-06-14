@@ -3,9 +3,9 @@
 A Flappy bird clone using ncurses and c++. Project done for ICT exam at Università della Calabria (https://www.mat.unical.it/demacs)
 
 In order to build you have to install CMake.
-```
+
 https://cmake.org/download/
-```
+
 Then you can create a `build` folder and type in a terminal
 
 ```cmake .. && make```
