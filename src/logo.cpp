@@ -23,26 +23,19 @@ void selection(int ch)
             mvprintw(LINES/2, COLS/2, "\n Curses Bird  Copyright (C) 2018  Matteo Notaro \n This program comes with ABSOLUTELY NO WARRANTY; \n This is free software, and you are welcome to redistribute it \n under certain conditions; see \"LICENSE\" file for details \n github: MattNot \n LinkedIn: matteo-notaro \n For info you can write me on linkedin or create a issue on github.");
             nodelay(stdscr, false);
             char c;
-            while(1){
-				c=getch();
-				if(c)
-				{
-					clear();
-					return;
-				}
-			}
+			c=getch();
+			nodelay(stdscr,true);
+			clear();
+			return;
             break;
 		case 2:
 			mvprintw(LINES/2,COLS/2,"\nSPACEBAR->Jump\nIf the bird is red means that you're invincible for just ONE hit. You become invincible every 10 points.");
-			nodelay(stdscr,false);
 			char d;
-			while(1){
-				d=getch();
-				if(d){
-					clear();
-					return;
-				}
-			}
+			nodelay(stdscr,false);
+			d=getch();
+			clear();
+			nodelay(stdscr,true);
+			return;
 			break;
         case 3:
             endwin();
@@ -70,7 +63,7 @@ int printLogo()
 	mvprintw(i++,2,R"(| \__/\ |_| | |  \__ \  __/\__ \ | |_/ / | | | (_| |)");
 	mvprintw(i++,2,R"( \____/\__,_|_|  |___/\___||___/ \____/|_|_|  \__,_|)");
 	mvprintw(i++,2,R"(                                                    )");
-	mvprintw(i++,2,R"(                                                   )");
+	mvprintw(i++,2,R"(                                                    )");
 	return i;
 }
 int showFirstMenu(int i)
