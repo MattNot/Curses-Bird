@@ -33,7 +33,7 @@ vector<Pipe> pipes; //Pipes
 
 int points=0;
 int highScore;
-long unsigned tmp=0;
+long unsigned cycles=0;
 
 void start()
 {
@@ -77,12 +77,11 @@ void setup()
 	init_pair(2,COLOR_YELLOW,COLOR_BLACK); // Bird's color pair when vulnerable
 	init_pair(3,COLOR_RED,COLOR_BLACK); //Bird's color pair when invincible
 	bird=new Bird();
-	start();
 }
 
 void restart()
 {
-	tmp=0;
+	cycles=0;
 	bird=new Bird();
 	pipes.clear();
 }
@@ -95,7 +94,11 @@ void play()
 	ifile.open(SCORE);
 	string hS;
 	getline(ifile,hS);
-	highScore=stoi(hS);
+	if(hS != ""){
+		highScore=stoi(hS);
+	}else{
+		highScore=0;
+	}
 	ifile.close();
 	ofile.open(SCORE);
 	int spawnrate=19; //This sets the number of pipes on the screen e.g. 19=4, 15=6;
@@ -106,9 +109,9 @@ void play()
 	{
 		box(stdscr, 0,0);
 		mvprintw(0, (COLS/2)-5, "Points: %d",points);
-		tmp++;
+		cycles++;
 		// Create a new pipe and push back it into the vector "pipes" only if dicculty hasn't been just changed
-		if(tmp%spawnrate==0 && difficulty)
+		if(cycles%spawnrate==0 && difficulty)
 		{
 			Pipe* pipe=new Pipe();
 			pipes.push_back(*pipe);
@@ -164,6 +167,7 @@ void play()
 					}
 					nodelay(stdscr,false);
 					getch();
+					clear();
 					return;
 				}
 				else if(pipes[i].isHit(bird))
@@ -211,6 +215,7 @@ void play()
 int main()
 {
 	setup();
+	start();
 	nodelay(stdscr,false);
 	endwin();
 }
