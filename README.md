@@ -6,7 +6,14 @@ In order to build you have to install CMake.
 
 https://cmake.org/download/
 
-Then you can create a `build` folder and type in a terminal
+If you are missing same libraries it will say to you what do you need. In general you have to install nCurses and SFML
+
+```
+sudo apt-get install libsfml-dev
+sudo apt-get install libncurses-dev
+```
+
+Then you have to create a `build` folder and type in a terminal
 
 ```cmake .. && make```
 
