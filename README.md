@@ -10,12 +10,7 @@ Then you can create a `build` folder and type in a terminal
 
 ```cmake .. && make```
 
-or just type
-
-```
-cmake CMakeLists.txt && make -f Makefile
-```
-in both cases then type
+then type
 ```
 ./cursesbird
 ```
