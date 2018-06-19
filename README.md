@@ -6,16 +6,18 @@ In order to build you have to install CMake.
 
 https://cmake.org/download/
 
-Then you can create a `build` folder and type in a terminal
+If you are missing same libraries it will say to you what do you need. In general you have to install nCurses and SFML
+
+```
+sudo apt-get install libsfml-dev
+sudo apt-get install libncurses-dev
+```
+
+Then you have to create a `build` folder and type in a terminal
 
 ```cmake .. && make```
 
-or just type
-
-```
-cmake CMakeLists.txt && make -f Makefile
-```
-in both cases then type
+then type
 ```
 ./cursesbird
 ```
@@ -26,4 +28,9 @@ Don't forget to open an issue if you get bugs or glitches!
 
 Next project: A "simple" Neural network using TensorFlow for the bird!
 
-Thanks to http://thecodingtrain.com/ (aka Daniel Shiffman (http://shiffman.net/)) and the Processing foundation for the idea and the amazing works they do.
+
+Ps.
+This project has been developed and tested on Ubuntu 18.04 LTS and 16.
+On Lubuntu 16 and Xubuntu 16 there are some graphical glitches caused by nCurses and how it works with different terminal emulator.
+
+Thanks to http://thecodingtrain.com/ (aka Daniel Shiffman (http://shiffman.net/)) and the Processing foundation for the idea and the amazing work they do.
