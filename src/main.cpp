@@ -19,8 +19,11 @@
 using namespace std;
 using namespace sf;
 
+//Highscore file
 ofstream ofile;
 ifstream ifile;
+
+//Sounds
 Music music;
 Music intro;
 SoundBuffer c;
@@ -46,8 +49,9 @@ void start()
 	}
 }
 
-void setup()
+void setup() // Boring stuffs
 {
+	//sfml stuffs
 	c.loadFromFile(COIN);
 	d.loadFromFile(DEATH);
 	intro.openFromFile(INTRO);
@@ -59,23 +63,26 @@ void setup()
 	music.setVolume(100);
 	music.setLoop(true);
 	intro.play();
+	
 	srand(time(0));
+	
+	//ncurses inizialitazion 
 	initscr();
 	cbreak();
-	keypad(stdscr,TRUE);
-	nodelay(stdscr, true);
+	keypad(stdscr,TRUE); 
+	nodelay(stdscr, true); // true to ignore getch if the user hasn't pressed anything
 	noecho();
 	curs_set(0);
 	start_color();
-			//R	, G	 , B
+	//1000 stay for 255 in RGB
 	init_color(COLOR_YELLOW,1000,1000, 0); //Don't know why yellow was mustard
 	init_color(COLOR_GREEN, 0,   1000, 0);
 	init_color(COLOR_BLACK, 0,   0,    0);
 	init_color(COLOR_WHITE, 1000,1000,1000);
 	init_color(COLOR_RED,   1000,0,    0);
-	init_pair(1,COLOR_GREEN,COLOR_BLACK); // Pipe's color pair
-	init_pair(2,COLOR_YELLOW,COLOR_BLACK); // Bird's color pair when vulnerable
-	init_pair(3,COLOR_RED,COLOR_BLACK); //Bird's color pair when invincible
+	init_pair (1,COLOR_GREEN,COLOR_BLACK); // Pipe's color pair
+	init_pair (2,COLOR_YELLOW,COLOR_BLACK); // Bird's color pair when vulnerable
+	init_pair (3,COLOR_RED,COLOR_BLACK); //Bird's color pair when invincible
 	bird=new Bird();
 }
 
@@ -91,16 +98,18 @@ void play()
 	restart();
 	intro.stop();
 	music.play();
+	
 	ifile.open(SCORE);
 	string hS;
 	getline(ifile,hS);
 	if(hS != ""){
-		highScore=stoi(hS);
+		highScore=stoi(hS); //string to integer
 	}else{
 		highScore=0;
 	}
 	ifile.close();
 	ofile.open(SCORE);
+	
 	int spawnrate=19; //This sets the number of pipes on the screen e.g. 19=4, 15=6;
 	bool difficulty=true;
 	Pipe* pipe=new Pipe();
@@ -109,7 +118,7 @@ void play()
 	{
 		box(stdscr, 0,0);
 		mvprintw(0, (COLS/2)-5, "Points: %d",points);
-		cycles++;
+		cycles++; // how many cycles
 		// Create a new pipe and push back it into the vector "pipes" only if dicculty hasn't been just changed
 		if(cycles%spawnrate==0 && difficulty)
 		{
@@ -141,7 +150,7 @@ void play()
 			{
 				bird->up();
 			}
-
+			
 			bird->show();
 			for(int i=0; i<pipes.size();i++)
 			{
@@ -170,7 +179,7 @@ void play()
 					clear();
 					return;
 				}
-				else if(pipes[i].isHit(bird))
+				else if(pipes[i].isHit(bird)) // if this is true means that you're invincible while you hit a pipe
 				{
 					bird->setInvincibility(false);
 					if(pipes[i].x==bird->getx())
@@ -197,7 +206,7 @@ void play()
 						{
 							spawnrate-=2;
 							if(spawnrate<2)
-								spawnrate=3;
+								spawnrate=4;
 							difficulty=!difficulty;
 						}
 						if(points%10==0)
