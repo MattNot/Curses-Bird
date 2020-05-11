@@ -89,6 +89,7 @@ void setup() // Boring stuffs
 void restart()
 {
 	cycles=0;
+	delete bird;
 	bird=new Bird();
 	pipes.clear();
 }
