@@ -20,7 +20,7 @@ void selection(int ch)
             return;
             break;
         case 1: //Copyright stuffs
-            mvprintw(LINES/2, COLS/2, "\n Curses Bird  Copyright (C) 2018  Matteo Notaro \n This program comes with ABSOLUTELY NO WARRANTY; \n This is free software, and you are welcome to redistribute it \n under certain conditions; see \"LICENSE\" file for details \n github: MattNot \n LinkedIn: matteo-notaro \n For info you can write me on linkedin or create a issue on github.");
+            mvprintw(LINES/2, COLS/2, "\n This program comes with ABSOLUTELY NO WARRANTY; \n This is free software, and you are welcome to redistribute it \n under certain conditions; see \"LICENSE\" file for details \n github: MattNot \n LinkedIn: matteo-notaro \n For info you can write me on linkedin or create a issue on github.");
             nodelay(stdscr, false);
             char c;
 			c=getch();
@@ -40,6 +40,8 @@ void selection(int ch)
         case 3:
             endwin();
             exit(1);
+            break;
+        case default:
             break;
     }
     refresh();
